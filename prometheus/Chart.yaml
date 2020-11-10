@@ -1,0 +1,5 @@
+---
+apiVersion: The chart API version (required)
+name: prometheus
+version: 0.0.1
+description: Simple Prometheus chart for local testing

@@ -1,0 +1,18 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  image: {{.Values.image}}
+  serviceAccountName: prometheus
+  replicas: 1
+  externalUrl: http://localhost:8080/prometheus
+  resources:
+    requests:
+      memory: 50Mi
+  scrapeInterval: 5m
+  retention: 1h
+  serviceMonitorSelector:
+    matchLabels:
+      prometheus: prometheus

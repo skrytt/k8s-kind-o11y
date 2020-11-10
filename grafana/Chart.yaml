@@ -1,0 +1,5 @@
+---
+apiVersion: The chart API version (required)
+name: grafana
+version: 0.0.1
+description: Simple Grafana chart for local testing
