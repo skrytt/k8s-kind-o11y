@@ -1,0 +1,24 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: ambassador
+spec:
+  prefix: /grafana/
+  service: grafana:80
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: prometheus
+spec:
+  prefix: /prometheus/
+  service: prometheus-operated:9090
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: loki
+spec:
+  prefix: /loki/
+  service: loki:3100

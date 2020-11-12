@@ -7,4 +7,5 @@ spec:
   selector:
     prometheus: prometheus
   ports:
-    - port: 9090
+    - name: http
+      port: 9090
