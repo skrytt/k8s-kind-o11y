@@ -18,6 +18,14 @@ spec:
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
+  name: alertmanager
+spec:
+  prefix: /alertmanager/
+  service: alertmanager-operated:9093
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
   name: loki
 spec:
   prefix: /loki/

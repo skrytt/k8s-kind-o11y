@@ -4,15 +4,6 @@ set -euxo pipefail
 # Create a single-node cluster
 kind create cluster --name kind --config ./cluster/cluster.yaml
 
-# Install Prometheus Operator
-PROMETHEUS_OPERATOR_VERSION="v0.43.2"
-wget -O- https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/${PROMETHEUS_OPERATOR_VERSION}/bundle.yaml | kubectl apply -f-
-
-# Deploy Prometheus: 
-# http://localhost:8080/prometheus/
-PROMETHEUS_IMAGE="quay.io/prometheus/prometheus:v2.22.1"
-helm upgrade --install --set image="${PROMETHEUS_IMAGE}" prometheus ./prometheus
-
 # Deploy Grafana:
 # http://localhost:8080/grafana/
 # NOTE: Helm chart numbering does not match Grafana versioning
@@ -22,9 +13,17 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install --version "${GRAFANA_HELM_CHART_VERSION}" --values ./grafana/values.yaml grafana grafana/grafana
 
+# Kube Prometheus Stack (Prometheus Operator, Prometheus, Alertmanager)
+# http://localhost:8080/prometheus/
+# http://localhost:8080/alertmanager/
+KUBE_PROMETHEUS_STACK_VERSION="11.1.1"
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+helm upgrade --install --version "${KUBE_PROMETHEUS_STACK_VERSION}" --values ./kube-prometheus-stack/values.yaml kube-prometheus-stack prometheus-community/kube-prometheus-stack
+
 # Install Loki and Promtail (Remote chart):
 # http://localhost:8080/loki/
-# http://localhost:8080/promtail/
 LOKI_VERSION="2.0.0"
 helm repo add loki https://grafana.github.io/loki/charts
 helm repo update
