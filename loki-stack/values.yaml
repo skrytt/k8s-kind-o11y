@@ -1,1 +1,11 @@
 ---
+loki:
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      prometheus: prometheus
+promtail:
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      prometheus: prometheus

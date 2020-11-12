@@ -4,3 +4,10 @@ grafana.ini:
     domain: localhost
     root_url: http://%(domain)s:3000/grafana
     serve_from_sub_path: true
+persistence:
+  enabled: true
+  size: 100Mi
+serviceMonitor:
+  enabled: true
+  labels:
+    prometheus: prometheus
